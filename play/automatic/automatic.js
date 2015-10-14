@@ -4,6 +4,8 @@ var ctx = canvas.getContext("2d");
 var stats_canvas = document.getElementById("stats_canvas");
 var stats_ctx = stats_canvas.getContext("2d");
 
+var ding = new Audio("../audio/ding.mp3");
+
 var NONCONFORM = 1.00;
 var BIAS = 0.33;
 var TILE_SIZE = 30;
@@ -309,6 +311,7 @@ window.render = function(){
 			doneAnimFrame = 30;
 			START_SIM = false;
 			console.log("DONE");
+			ding.play();
 			writeStats();
 		}
 	}else if(START_SIM){
