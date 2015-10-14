@@ -363,6 +363,7 @@ window.writeStats = function(){
 	var avg = total/draggables.length;
 	var avg_shake = total_shake/draggables.length;
 	var avg_bored = total_bored/draggables.length;
+	var avg_happy = (draggables.length - (total_shake + total_bored)) / draggables.length;
 	if(isNaN(avg)) debugger;
 
 	// If stats oversteps, bump back
@@ -391,11 +392,11 @@ window.writeStats = function(){
 	segregation_text.style.left = Math.round(x+35)+"px";
 
 	stats_ctx.fillStyle = "#2727cc";
-	y = 250 - avg_shake*250+10;
+	y = 250 - avg_happy*250+10;
 	stats_ctx.fillRect(x,y,1,5);
 	// Text
     if(shaking_text){
-        shaking_text.innerHTML = Math.floor(avg_shake*100)+"% unhappy";
+        shaking_text.innerHTML = Math.floor(avg_happy*100)+"% happy";
         shaking_text.style.top = Math.round(y-10)+"px";
         shaking_text.style.left = Math.round(x+35)+"px";
     }
