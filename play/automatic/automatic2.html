@@ -26,8 +26,8 @@
 			<div class="ui" id="reset" onclick="reset()" style="margin-left:9px"></div>
 		</div>
 	</div>
-	
-	
+
+
 
 </body>
 </html>
@@ -46,7 +46,7 @@ var whatever = new DoubleSlider(document.getElementById("slider"),{
 	],
 	values:[0.33,1.02],
 	onChange:function(values){
-		
+
 		window.BIAS = values[0];
 
 		// Write stats
@@ -63,7 +63,7 @@ window.IS_IN_SIGHT = true;
 
 window.RATIO_TRIANGLES = 0.4;
 window.RATIO_SQUARES = 0.4;
-window.RATIO_PENTAGONS = 0.0;
+window.RATIO_HEXAGONS = 0.0;
 window.EMPTINESS = 0.4;
 
 window.reset();

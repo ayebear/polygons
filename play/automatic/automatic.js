@@ -15,7 +15,7 @@ var DIAGONAL_SQUARED = (TILE_SIZE+5)*(TILE_SIZE+5) + (TILE_SIZE+5)*(TILE_SIZE+5)
 
 window.RATIO_TRIANGLES = 0.25;
 window.RATIO_SQUARES = 0.25;
-window.RATIO_PENTAGONS = 0.25;
+window.RATIO_HEXAGONS = 0.25;
 window.EMPTINESS = 0.25;
 
 
@@ -37,15 +37,15 @@ addAsset("sadTriangle","../img/sad_triangle.png");
 addAsset("yaySquare","../img/yay_square.png");
 addAsset("mehSquare","../img/meh_square.png");
 addAsset("sadSquare","../img/sad_square.png");
-addAsset("yayPentagon","../img/yay_pentagon.png");
-addAsset("mehPentagon","../img/meh_pentagon.png");
-addAsset("sadPentagon","../img/sad_pentagon.png");
+addAsset("yayHexagon","../img/yay_hexagon.png");
+addAsset("mehHexagon","../img/meh_hexagon.png");
+addAsset("sadHexagon","../img/sad_hexagon.png");
 
 var IS_PICKING_UP = false;
 var lastMouseX, lastMouseY;
 
 function Draggable(x,y){
-	
+
 	var self = this;
 	self.x = x;
 	self.y = y;
@@ -104,7 +104,7 @@ function Draggable(x,y){
 			self.gotoX = pickupX;
 			self.gotoY = pickupY;
 		}else{
-			
+
 			STATS.steps++;
 			writeStats();
 
@@ -182,7 +182,7 @@ function Draggable(x,y){
 	self.draw = function(){
 		ctx.save();
 		ctx.translate(self.x,self.y);
-		
+
 		if(self.shaking){
 			self.frame+=0.07;
 			ctx.translate(0,20);
@@ -210,11 +210,11 @@ function Draggable(x,y){
 			}
 		}else{
 			if(self.shaking){
-				img = images.sadPentagon;
+				img = images.sadHexagon;
 			}else if(self.bored){
-				img = images.mehPentagon;
+				img = images.mehHexagon;
 			}else{
-				img = images.yayPentagon;
+				img = images.yayHexagon;
 			}
         }
 
@@ -258,7 +258,7 @@ window.reset = function(){
                 }else if(rand<(window.RATIO_TRIANGLES+window.RATIO_SQUARES)){
                     draggable.color = "square";
                 }else{
-                    draggable.color = "pentagon";
+                    draggable.color = "hexagon";
                 }
 				draggables.push(draggable);
 			}
@@ -276,7 +276,7 @@ window.reset = function(){
 window.render = function(){
 
 	if(assetsLeft>0 || !draggables) return;
-	
+
 	// Is Stepping?
 	if(START_SIM){
 		step();
@@ -312,7 +312,7 @@ window.render = function(){
 			writeStats();
 		}
 	}else if(START_SIM){
-		
+
 		STATS.steps++;
 		doneBuffer = 30;
 
@@ -349,8 +349,8 @@ window.writeStats = function(){
 	if(!draggables || draggables.length==0) return;
 
 	// Average Sameness Ratio
-	// Average shaking 
-	// Average bored 
+	// Average shaking
+	// Average bored
 	var total = 0;
     var total_shake = 0;
     var total_bored = 0;

@@ -22,15 +22,15 @@
 				<div id="meh_text"></div>
 			</div>
 
-			i'll move if <span class="highlight">&lt;<span id="bias_text">33%</span></span> 
+			i'll move if <span class="highlight">&lt;<span id="bias_text">33%</span></span>
 			or <span class="highlight">&gt;<span id="nonconform_text">100%</span></span> of my neighbors are like me
 			<br>
 			<div id="slider"></div>
 			<br>
 
-			the triangle:square:pentagon ratio is
+			the triangle:square:hexagon ratio is
 			<span class="highlight">
-                <span id="ratio_text_triangles">25</span>:<span id="ratio_text_squares">25</span>:<span id="ratio_text_pentagons">25</span>
+                <span id="ratio_text_triangles">25</span>:<span id="ratio_text_squares">25</span>:<span id="ratio_text_hexagons">25</span>
             </span>
             <br>
 			board is
@@ -65,7 +65,7 @@ var whatever = new DoubleSlider(document.getElementById("slider"),{
 	],
 	values:[0.20,0.80],
 	onChange:function(values){
-		
+
 		window.BIAS = values[0];
 		window.NONCONFORM = values[1];
 
@@ -82,7 +82,7 @@ var whatever = new NSlider(document.getElementById("slider2"),{
 	backgrounds:[
 		{color:"#FFDD56",icon:"ds_happy.png"},
 		{color:"#567DFF",icon:"ds_happy.png"},
-		{color:"#56FF7D",icon:"ds_happy.png"},
+		{color:"#21B000",icon:"ds_happy.png"},
 		{color:"#000",icon:"ds_sad.png"}
 	],
 	values:[0.25,0.50,0.75],
@@ -95,13 +95,13 @@ var whatever = new NSlider(document.getElementById("slider2"),{
 		window.EMPTINESS = 1-VALUE_3;
 		window.RATIO_TRIANGLES = VALUE_1;
 		window.RATIO_SQUARES = (VALUE_2-VALUE_1);
-		window.RATIO_PENTAGONS = (VALUE_3-VALUE_2);
+		window.RATIO_HEXAGONS = (VALUE_3-VALUE_2);
 
 		// Write stats
 		START_SIM = false;
 		document.getElementById("ratio_text_triangles").innerHTML = Math.round(window.RATIO_TRIANGLES*100);
 		document.getElementById("ratio_text_squares").innerHTML = Math.round(window.RATIO_SQUARES*100);
-		document.getElementById("ratio_text_pentagons").innerHTML = Math.round(window.RATIO_PENTAGONS*100);
+		document.getElementById("ratio_text_hexagons").innerHTML = Math.round(window.RATIO_HEXAGONS*100);
 		document.getElementById("empty_text").innerHTML = Math.round(window.EMPTINESS*100)+"% empty";
 
 	},
