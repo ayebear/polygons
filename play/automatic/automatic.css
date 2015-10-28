@@ -20,6 +20,7 @@ div{
 	user-select: none;    
 }
 #container{
+	background:url(../img/polybg.png);
 	position: relative;
 	width:1030px;
 	height:600px;
@@ -29,8 +30,9 @@ div{
 	float:left;
 }
 #stats{
+	background:url(../img/blank.png);
 	width:400px; height:100%;
-	float:left;
+	float:right;
 	margin-left: 20px;
 	font-size: 16px;
 	text-align: center;
