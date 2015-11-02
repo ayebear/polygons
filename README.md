@@ -1,6 +1,6 @@
 ![](http://i.imgur.com/NcsRW1q.png)
 
-**[PLAY IT HERE](http://ncase.me/polygons)**
+**[PLAY IT HERE](http://ayebear.github.io/polygons/)**
 
 ---
 
@@ -19,5 +19,11 @@ Tweet us at
 
 ---
 
-This fork adds hexagons in the style shown in the picture at the bottom.
-![](./play/img/yay_hexagon.png)
+### This fork adds the following:
+
+* Modified graph output
+* Input forms bound with sliders
+* Ding sound when simulation complete
+* Map background
+* Improved polygon placement algorithm
+* Green hexagons: ![](./play/img/yay_hexagon.png)
