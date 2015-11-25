@@ -45,20 +45,20 @@
 		if(Mouse.y>canvas.height-BORDER) Mouse.y=canvas.height-BORDER;*/
 		// Looks a bit weird?... Esp if offset-grab...
 	}
-	
+
 	canvas.addEventListener("mousedown",function(event){
 		updateCursor();
-	    Mouse.pressed = true;
-	    onMouseMove(event);
-	    event.preventDefault();
-	    event.stopPropagation();
+		Mouse.pressed = true;
+		onMouseMove(event);
+		event.preventDefault();
+		event.stopPropagation();
 	},false);
 
 	canvas.addEventListener("mouseup",function(event){
 		updateCursor();
-	    Mouse.pressed = false;
-	    event.preventDefault();
-	    event.stopPropagation();
+		Mouse.pressed = false;
+		event.preventDefault();
+		event.stopPropagation();
 	},false);
 
 	canvas.addEventListener("mousemove",onMouseMove = function(event){
@@ -67,21 +67,21 @@
 		Mouse.y = event.pageY;
 		fixPosition();
 		event.preventDefault();
-	    event.stopPropagation();
+		event.stopPropagation();
 
 	},false);
 
 	canvas.addEventListener("touchstart",function(event){
-	    Mouse.pressed = true;
-	    onTouchMove(event);
-	    event.preventDefault();
-	    event.stopPropagation();
+		Mouse.pressed = true;
+		onTouchMove(event);
+		event.preventDefault();
+		event.stopPropagation();
 	},false);
 
 	canvas.addEventListener("touchend",function(event){
-	    Mouse.pressed = false;
-	    event.preventDefault();
-	    event.stopPropagation();
+		Mouse.pressed = false;
+		event.preventDefault();
+		event.stopPropagation();
 	},false);
 
 	canvas.addEventListener("touchmove",onTouchMove = function(event){
@@ -89,7 +89,7 @@
 		Mouse.y = event.changedTouches[0].clientY;
 		fixPosition();
 		event.preventDefault();
-	    event.stopPropagation();
+		event.stopPropagation();
 	},false);
 
 

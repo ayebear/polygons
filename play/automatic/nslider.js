@@ -24,7 +24,7 @@ function NSlider(dom,config){
 	self.draggingSliderDOM = null;
 	self.draggingSliderIndex = -1;
 
-    self.sliderCount = config.backgrounds.length;
+	self.sliderCount = config.backgrounds.length;
 
 	// Create DOM
 	self.dom.className = "ds";
@@ -42,7 +42,7 @@ function NSlider(dom,config){
 
 	}
 	for(var i=0;i<(self.sliderCount-1);i++){
-		
+
 		var dom = document.createElement("div");
 		dom.className = "ds_slider";
 		self.dom.appendChild(dom);
@@ -60,41 +60,41 @@ function NSlider(dom,config){
 
 	// Slider logic
 	function onMouseMove(x){
-	    if(self.draggingSliderDOM){
-	    	var val = x/400;
+		if(self.draggingSliderDOM){
+			var val = x/400;
 
-	    	var index = self.draggingSliderIndex;
-	    	var sliderWidth = 0;//0.025;
-            var edge_l = 0;
-            var edge_h = 1;
-	    	if(index==0){
-	    		edge_l = sliderWidth/2;
-	    		edge_h = self.values[index+1]-sliderWidth;
-	    	}else if(index==(self.sliderCount-1)){
-	    		edge_l = self.values[index-1]+sliderWidth;
-	    		edge_h = 1-sliderWidth/2;
-	    	}else{
-	    		edge_l = self.values[index-1]+sliderWidth;
-	    		edge_h = self.values[index+1]-sliderWidth;
-            }
-            if(val>edge_h){
-               val=edge_h;
-            }else if(val<edge_l){
-                val=edge_l;
-            }
+			var index = self.draggingSliderIndex;
+			var sliderWidth = 0;//0.025;
+			var edge_l = 0;
+			var edge_h = 1;
+			if(index==0){
+				edge_l = sliderWidth/2;
+				edge_h = self.values[index+1]-sliderWidth;
+			}else if(index==(self.sliderCount-1)){
+				edge_l = self.values[index-1]+sliderWidth;
+				edge_h = 1-sliderWidth/2;
+			}else{
+				edge_l = self.values[index-1]+sliderWidth;
+				edge_h = self.values[index+1]-sliderWidth;
+			}
+			if(val>edge_h){
+			   val=edge_h;
+			}else if(val<edge_l){
+				val=edge_l;
+			}
 
-	    	self.values[index] = val;
-	    	self.updateUI();
-	    	config.onChange(self.values);
+			self.values[index] = val;
+			self.updateUI();
+			config.onChange(self.values);
 
 		}
 	}
 	function onMouseUp(){
 		if(self.draggingSliderDOM){
-		    self.draggingSliderDOM = null;
-		    if(config.onLetGo){
-		    	config.onLetGo();
-		    }
+			self.draggingSliderDOM = null;
+			if(config.onLetGo){
+				config.onLetGo();
+			}
 		}
 	}
 	document.body.addEventListener("mousemove",function(event){
@@ -123,22 +123,22 @@ function NSlider(dom,config){
 		}
 
 		var bg;
-        var vals = self.values.map(function(val){
-            return val*400;
-        })
-        
-        for(var i=0; i<self.sliderCount;i++){
-            bg = self.backgrounds[i];
-            if(i==0){
-                bg.style.width = vals[i]+"px";
-            }else if(i==(self.sliderCount-1)){
-                bg.style.width = (400-vals[i-1])+"px";
-                bg.style.left = (vals[i-1])+"px";
-            }else {
-                bg.style.width = (vals[i]-vals[i-1])+"px";
-                bg.style.left = (vals[i-1])+"px";
-            }
-        }
+		var vals = self.values.map(function(val){
+			return val*400;
+		})
+
+		for(var i=0; i<self.sliderCount;i++){
+			bg = self.backgrounds[i];
+			if(i==0){
+				bg.style.width = vals[i]+"px";
+			}else if(i==(self.sliderCount-1)){
+				bg.style.width = (400-vals[i-1])+"px";
+				bg.style.left = (vals[i-1])+"px";
+			}else {
+				bg.style.width = (vals[i]-vals[i-1])+"px";
+				bg.style.left = (vals[i-1])+"px";
+			}
+		}
 
 	};
 
@@ -150,27 +150,27 @@ function NSlider(dom,config){
 }
 
 function findPos(obj){
-    var curleft = 0;
-    var curtop = 0;
-    if(obj.offsetLeft) curleft += parseInt(obj.offsetLeft);
-    if(obj.offsetTop) curtop += parseInt(obj.offsetTop);
-    if(obj.scrollTop && obj.scrollTop > 0) curtop -= parseInt(obj.scrollTop);
-    if(obj.offsetParent) {
-        var pos = findPos(obj.offsetParent);
-        curleft += pos[0];
-        curtop += pos[1];
-    }/* else if(obj.ownerDocument) {
-        var thewindow = obj.ownerDocument.defaultView;
-        if(!thewindow && obj.ownerDocument.parentWindow)
-            thewindow = obj.ownerDocument.parentWindow;
-        if(thewindow) {
-            if(thewindow.frameElement) {
-                var pos = findPos(thewindow.frameElement);
-                curleft += pos[0];
-                curtop += pos[1];
-            }
-        }
-    }*/
+	var curleft = 0;
+	var curtop = 0;
+	if(obj.offsetLeft) curleft += parseInt(obj.offsetLeft);
+	if(obj.offsetTop) curtop += parseInt(obj.offsetTop);
+	if(obj.scrollTop && obj.scrollTop > 0) curtop -= parseInt(obj.scrollTop);
+	if(obj.offsetParent) {
+		var pos = findPos(obj.offsetParent);
+		curleft += pos[0];
+		curtop += pos[1];
+	}/* else if(obj.ownerDocument) {
+		var thewindow = obj.ownerDocument.defaultView;
+		if(!thewindow && obj.ownerDocument.parentWindow)
+			thewindow = obj.ownerDocument.parentWindow;
+		if(thewindow) {
+			if(thewindow.frameElement) {
+				var pos = findPos(thewindow.frameElement);
+				curleft += pos[0];
+				curtop += pos[1];
+			}
+		}
+	}*/
 
-    return [curleft,curtop];
+	return [curleft,curtop];
 }

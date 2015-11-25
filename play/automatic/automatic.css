@@ -76,10 +76,10 @@ div{
 	top:0px;
 
 	-webkit-transition: top 0.1s linear;
-    -moz-transition: top 0.1s linear;
-    -ms-transition: top 0.1s linear;
-    -o-transition: top 0.1s linear;
-    transition: top 0.1s linear;
+	-moz-transition: top 0.1s linear;
+	-ms-transition: top 0.1s linear;
+	-o-transition: top 0.1s linear;
+	transition: top 0.1s linear;
 
 }
 .ui:hover{

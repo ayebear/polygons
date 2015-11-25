@@ -218,7 +218,7 @@ function Draggable(x,y){
 			}else{
 				img = images.yayHexagon;
 			}
-        }
+		}
 
 		// Dangle
 		if(self.dragged){
@@ -252,16 +252,16 @@ window.reset = function(){
 	draggables = [];
 	for(var x=0;x<GRID_SIZE;x++){
 		for(var y=0;y<GRID_SIZE;y++){
-            var rand = Math.random();
+			var rand = Math.random();
 			if(rand<(1-window.EMPTINESS)){
 				var draggable = new Draggable((x+0.5)*TILE_SIZE, (y+0.5)*TILE_SIZE);
-                if(rand<window.RATIO_TRIANGLES){
-                    draggable.color = "triangle";
-                }else if(rand<(window.RATIO_TRIANGLES+window.RATIO_SQUARES)){
-                    draggable.color = "square";
-                }else{
-                    draggable.color = "hexagon";
-                }
+				if(rand<window.RATIO_TRIANGLES){
+					draggable.color = "triangle";
+				}else if(rand<(window.RATIO_TRIANGLES+window.RATIO_SQUARES)){
+					draggable.color = "square";
+				}else{
+					draggable.color = "hexagon";
+				}
 				draggables.push(draggable);
 			}
 		}
@@ -338,7 +338,7 @@ window.render = function(){
 }
 var segregation_text = document.getElementById("segregation_text");
 if(!segregation_text){
-    var segregation_text = document.getElementById("stats_text");
+	var segregation_text = document.getElementById("stats_text");
 }
 var shaking_text = document.getElementById("sad_text");
 var bored_text = document.getElementById("meh_text");
@@ -355,13 +355,13 @@ window.writeStats = function(){
 	// Average shaking
 	// Average bored
 	var total = 0;
-    var total_shake = 0;
-    var total_bored = 0;
+	var total_shake = 0;
+	var total_bored = 0;
 	for(var i=0;i<draggables.length;i++){
 		var d = draggables[i];
 		total += d.sameness || 0;
-        total_shake += (d.shaking?1:0);
-        total_bored += (d.bored?1:0);
+		total_shake += (d.shaking?1:0);
+		total_bored += (d.bored?1:0);
 	}
 	var avg = total/draggables.length;
 	var avg_shake = total_shake/draggables.length;
@@ -398,21 +398,21 @@ window.writeStats = function(){
 	y = 250 - avg_happy*250+10;
 	stats_ctx.fillRect(x,y,1,5);
 	// Text
-    if(shaking_text){
-        shaking_text.innerHTML = Math.floor(avg_happy*100)+"% happy";
-        shaking_text.style.top = Math.round(y-10)+"px";
-        shaking_text.style.left = Math.round(x+35)+"px";
-    }
+	if(shaking_text){
+		shaking_text.innerHTML = Math.floor(avg_happy*100)+"% happy";
+		shaking_text.style.top = Math.round(y-10)+"px";
+		shaking_text.style.left = Math.round(x+35)+"px";
+	}
 
 	stats_ctx.fillStyle = "#cccc27";
 	y = 250 - avg_bored*250+10;
 	stats_ctx.fillRect(x,y,1,5);
 	// Text
-    if(bored_text){
+	if(bored_text){
 	bored_text.innerHTML = Math.floor(avg_bored*100)+"% meh";
 	bored_text.style.top = Math.round(y-10)+"px";
 	bored_text.style.left = Math.round(x+35)+"px";
-    }
+	}
 
 	// Button
 	if(START_SIM){

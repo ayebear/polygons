@@ -40,7 +40,7 @@ function DoubleSlider(dom,config){
 
 	}
 	for(var i=0;i<2;i++){
-		
+
 		var dom = document.createElement("div");
 		dom.className = "ds_slider";
 		self.dom.appendChild(dom);
@@ -58,35 +58,35 @@ function DoubleSlider(dom,config){
 
 	// Slider logic
 	function onMouseMove(x){
-	    if(self.draggingSliderDOM){
-	    	var val = x/400;
+		if(self.draggingSliderDOM){
+			var val = x/400;
 
-	    	var index = self.draggingSliderIndex;
-	    	var sliderWidth = 0;//0.025;
-	    	if(index==0){
-	    		var edge = self.values[1]-sliderWidth;
-	    		if(val>edge) val=edge;
-	    	}else if(index==1){
-	    		var edge = self.values[0]+sliderWidth;
-	    		if(val<edge) val=edge;
-	    	}
-	    	var edge = sliderWidth/2;
-    		if(val<edge) val=edge;
-	    	var edge = 1-sliderWidth/2;
-	    	if(val>edge) val=edge;
+			var index = self.draggingSliderIndex;
+			var sliderWidth = 0;//0.025;
+			if(index==0){
+				var edge = self.values[1]-sliderWidth;
+				if(val>edge) val=edge;
+			}else if(index==1){
+				var edge = self.values[0]+sliderWidth;
+				if(val<edge) val=edge;
+			}
+			var edge = sliderWidth/2;
+			if(val<edge) val=edge;
+			var edge = 1-sliderWidth/2;
+			if(val>edge) val=edge;
 
-	    	self.values[index] = val;
-	    	self.updateUI();
-	    	config.onChange(self.values);
+			self.values[index] = val;
+			self.updateUI();
+			config.onChange(self.values);
 
 		}
 	}
 	function onMouseUp(){
 		if(self.draggingSliderDOM){
-		    self.draggingSliderDOM = null;
-		    if(config.onLetGo){
-		    	config.onLetGo();
-		    }
+			self.draggingSliderDOM = null;
+			if(config.onLetGo){
+				config.onLetGo();
+			}
 		}
 	}
 	document.body.addEventListener("mousemove",function(event){
@@ -124,7 +124,7 @@ function DoubleSlider(dom,config){
 		bg = self.backgrounds[2];
 		bg.style.left = v1+"px";
 		bg.style.width = (400-v1)+"px";
-			 
+
 
 	};
 
@@ -136,27 +136,27 @@ function DoubleSlider(dom,config){
 }
 
 function findPos(obj){
-    var curleft = 0;
-    var curtop = 0;
-    if(obj.offsetLeft) curleft += parseInt(obj.offsetLeft);
-    if(obj.offsetTop) curtop += parseInt(obj.offsetTop);
-    if(obj.scrollTop && obj.scrollTop > 0) curtop -= parseInt(obj.scrollTop);
-    if(obj.offsetParent) {
-        var pos = findPos(obj.offsetParent);
-        curleft += pos[0];
-        curtop += pos[1];
-    }/* else if(obj.ownerDocument) {
-        var thewindow = obj.ownerDocument.defaultView;
-        if(!thewindow && obj.ownerDocument.parentWindow)
-            thewindow = obj.ownerDocument.parentWindow;
-        if(thewindow) {
-            if(thewindow.frameElement) {
-                var pos = findPos(thewindow.frameElement);
-                curleft += pos[0];
-                curtop += pos[1];
-            }
-        }
-    }*/
+	var curleft = 0;
+	var curtop = 0;
+	if(obj.offsetLeft) curleft += parseInt(obj.offsetLeft);
+	if(obj.offsetTop) curtop += parseInt(obj.offsetTop);
+	if(obj.scrollTop && obj.scrollTop > 0) curtop -= parseInt(obj.scrollTop);
+	if(obj.offsetParent) {
+		var pos = findPos(obj.offsetParent);
+		curleft += pos[0];
+		curtop += pos[1];
+	}/* else if(obj.ownerDocument) {
+		var thewindow = obj.ownerDocument.defaultView;
+		if(!thewindow && obj.ownerDocument.parentWindow)
+			thewindow = obj.ownerDocument.parentWindow;
+		if(thewindow) {
+			if(thewindow.frameElement) {
+				var pos = findPos(thewindow.frameElement);
+				curleft += pos[0];
+				curtop += pos[1];
+			}
+		}
+	}*/
 
-    return [curleft,curtop];
+	return [curleft,curtop];
 }
