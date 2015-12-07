@@ -1,3 +1,7 @@
+//Garbage collectors
+//Description: Double slider implementation
+//These sliders are used for controlling variables for the simulation
+
 /***
 
 new DoubleSlider(dom,{
@@ -56,7 +60,7 @@ function DoubleSlider(dom,config){
 
 	}
 
-	// Slider logic
+	// Slider logic for dragging and moving the slider
 	function onMouseMove(x){
 		if(self.draggingSliderDOM){
 			var val = x/400;
@@ -89,6 +93,7 @@ function DoubleSlider(dom,config){
 			}
 		}
 	}
+	//basic listeners for mouse movement
 	document.body.addEventListener("mousemove",function(event){
 		var x = event.pageX - myX();
 		onMouseMove(x);
@@ -105,7 +110,7 @@ function DoubleSlider(dom,config){
 		return cacheX;
 	}
 
-	// UI Update
+	// UI Update (Reflect the changes to the user)
 	self.updateUI = function(){
 
 		for(var i=0;i<2;i++){
@@ -145,7 +150,10 @@ function findPos(obj){
 		var pos = findPos(obj.offsetParent);
 		curleft += pos[0];
 		curtop += pos[1];
-	}/* else if(obj.ownerDocument) {
+		
+	}
+	//Ignore this section of commented code, its leftovers
+	/* else if(obj.ownerDocument) {
 		var thewindow = obj.ownerDocument.defaultView;
 		if(!thewindow && obj.ownerDocument.parentWindow)
 			thewindow = obj.ownerDocument.parentWindow;
