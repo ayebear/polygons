@@ -72,7 +72,7 @@ function Draggable(x,y){
 	var offsetX, offsetY;
 	var pickupX, pickupY;
 	self.pickup = function(){
-
+	    //This means they're picking things up
 		IS_PICKING_UP = true;
 
 		pickupX = (Math.floor(self.x/TILE_SIZE)+0.5)*TILE_SIZE;
@@ -81,7 +81,7 @@ function Draggable(x,y){
 		offsetY = Mouse.y-self.y;
 		self.dragged = true;
 
-		// Dangle
+		// Dangle the shape 
 		self.dangle = 0;
 		self.dangleVel = 0;
 
@@ -95,8 +95,10 @@ function Draggable(x,y){
 	//Dropping the pieces on the board
 	self.drop = function(){
 
+	    //You're not picking it up anymore if you're dropping it
 		IS_PICKING_UP = false;
 
+		//All of this math adjusts the coordinates based on tile size and grid size
 		var px = Math.floor(Mouse.x/TILE_SIZE);
 		var py = Math.floor(Mouse.y/TILE_SIZE);
 		if(px<0) px=0;
@@ -127,10 +129,12 @@ function Draggable(x,y){
 			STATS.steps++;
 			writeStats();
 
+			//goto becomes the potential because the spot is free
 			self.gotoX = potentialX;
 			self.gotoY = potentialY;
 		}
 
+		//it isn't being dragged anymore because this whole part is over!
 		self.dragged = false;
 
 	}
@@ -142,6 +146,7 @@ function Draggable(x,y){
 		self.shaking = false;
 		self.bored = false;
 
+		//This means that the shape isn't currently being dragged
 		if(!self.dragged){
 			var neighbors = 0;
 			var same = 0;
@@ -151,24 +156,36 @@ function Draggable(x,y){
 				var dx = d.x-self.x;
 				var dy = d.y-self.y;
 				if(dx*dx+dy*dy<DIAGONAL_SQUARED){
+
+				    //count how many neighbors the shape has in general
 					neighbors++;
+
+					//count how many of the shapes neighbors are the same color as it
+					//We're going to need the ratio of neighbors:neighbors of same color
 					if(d.color==self.color){
 						same++;
 					}
 				}
 			}
+			//You only need to calculate this ratio if the shape actually has neighbors
+			//the ratio is number of same neighbors/number total neighbors
+			//this will give you the percentage of neighbors that are the same
 			if(neighbors>0){
 				self.sameness = (same/neighbors);
 			}else{
+			    // In this case the shape didn't have neighbors so set the sameness to 1 because all this shape has is itself
 				self.sameness = 1;
 			}
 			//Dealing with boredom and shakiness based on bias
+			//the shape will shake if it is below the bias threshold or above the conformity threshold, both uncomfortable states
 			if(self.sameness<BIAS || self.sameness>NONCONFORM){
 				self.shaking = true;
 			}
+			//if all neighbors are the same it's bored
 			if(self.sameness>0.99){
 				self.bored = true;
 			}
+			//it won't shake if it doesnt have neighbors, it's alone
 			if(neighbors==0){
 				self.shaking = false;
 			}
