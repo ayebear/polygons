@@ -1,11 +1,22 @@
+//Garbage collectors modifications to the parable of the polygons
+//Notable modifications:
+//Added ding sound to signal end of simulation
+//Added green hexagon
+//Modified statistics output
+//Made the background a picture of a map
+// Option to control the satisfaction threshold with sliders
+
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 var stats_canvas = document.getElementById("stats_canvas");
 var stats_ctx = stats_canvas.getContext("2d");
 
+//Ding sound to be used to signal the end of the simulation (satisfaction point)
 var ding = new Audio("../audio/ding.mp3");
 
+
+//initialize bias to 1/3, artifact of original
 var NONCONFORM = 1.00;
 var BIAS = 0.33;
 var TILE_SIZE = 30;
@@ -14,7 +25,7 @@ var GRID_SIZE = 20;
 var DIAGONAL_SQUARED = (TILE_SIZE+5)*(TILE_SIZE+5) + (TILE_SIZE+5)*(TILE_SIZE+5);
 
 
-
+//Default ratio of shapes for startup
 window.RATIO_TRIANGLES = 0.25;
 window.RATIO_SQUARES = 0.25;
 window.RATIO_HEXAGONS = 0.25;
@@ -33,6 +44,8 @@ function addAsset(name,src){
 	images[name].onload = onImageLoaded;
 	images[name].src = src;
 }
+
+//Adding our images to the node so they can have all the emotions
 addAsset("yayTriangle","../img/yay_triangle.png");
 addAsset("mehTriangle","../img/meh_triangle.png");
 addAsset("sadTriangle","../img/sad_triangle.png");
@@ -43,9 +56,11 @@ addAsset("yayHexagon","../img/yay_hexagon.png");
 addAsset("mehHexagon","../img/meh_hexagon.png");
 addAsset("sadHexagon","../img/sad_hexagon.png");
 
+//initializing variables for drag and drop functionality
 var IS_PICKING_UP = false;
 var lastMouseX, lastMouseY;
 
+//This portion gives the functionality to drag and drop pieces, dangling them while you move them
 function Draggable(x,y){
 
 	var self = this;
@@ -77,6 +92,7 @@ function Draggable(x,y){
 
 	};
 
+	//Dropping the pieces on the board
 	self.drop = function(){
 
 		IS_PICKING_UP = false;
@@ -90,6 +106,7 @@ function Draggable(x,y){
 		var potentialX = (px+0.5)*TILE_SIZE;
 		var potentialY = (py+0.5)*TILE_SIZE;
 
+		//Making sure that the space you're placing the shape on isnt already used
 		var spotTaken = false;
 		for(var i=0;i<draggables.length;i++){
 			var d = draggables[i];
@@ -101,7 +118,7 @@ function Draggable(x,y){
 				break;
 			}
 		}
-
+		//In this case the spot is already taken so go to back to pickup location
 		if(spotTaken){
 			self.gotoX = pickupX;
 			self.gotoY = pickupY;
@@ -121,7 +138,7 @@ function Draggable(x,y){
 	var lastPressed = false;
 	self.update = function(){
 
-		// Shakiness?
+		// Shakiness
 		self.shaking = false;
 		self.bored = false;
 
@@ -145,6 +162,7 @@ function Draggable(x,y){
 			}else{
 				self.sameness = 1;
 			}
+			//Dealing with boredom and shakiness based on bias
 			if(self.sameness<BIAS || self.sameness>NONCONFORM){
 				self.shaking = true;
 			}
@@ -184,7 +202,8 @@ function Draggable(x,y){
 	self.draw = function(){
 		ctx.save();
 		ctx.translate(self.x,self.y);
-
+		
+		//Defining shaking and how it looks
 		if(self.shaking){
 			self.frame+=0.07;
 			ctx.translate(0,20);
@@ -279,7 +298,7 @@ window.render = function(){
 
 	if(assetsLeft>0 || !draggables) return;
 
-	// Is Stepping?
+	// Is Stepping
 	if(START_SIM){
 		step();
 	}
@@ -304,7 +323,7 @@ window.render = function(){
 		draggables[i].draw();
 	}
 
-	// Done stepping?
+	// Done stepping End simulation play the ding and you're done
 	if(isDone()){
 		doneBuffer--;
 		if(doneBuffer==0){
@@ -315,11 +334,11 @@ window.render = function(){
 			writeStats();
 		}
 	}else if(START_SIM){
-
+	    //Keep going you're not done
 		STATS.steps++;
 		doneBuffer = 30;
 
-		// Write stats
+		// Write stats to update graph
 		writeStats();
 
 	}
@@ -336,6 +355,8 @@ window.render = function(){
 	lastMouseY = Mouse.y;
 
 }
+
+//Dealing with text definition for sliders and stats
 var segregation_text = document.getElementById("segregation_text");
 if(!segregation_text){
 	var segregation_text = document.getElementById("stats_text");
