@@ -1,3 +1,6 @@
+/* Garbage collectors: CSS for automatic (main driver) of simulation */
+/* This file provides most of the visual UI elemete for the simulation */
+
 body{
 	margin:0;
 	overflow: hidden;
