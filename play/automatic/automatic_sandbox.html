@@ -1,6 +1,6 @@
 <!-- Garbage collectors: HTML for Parable of the polygons simulation -->
 <!-- This file creates the webpage for our simulation, including layout and main UI elements -->
-<!-- This is directly based on the original HTML for the parable of the polygons, little was changed stylistically --> 
+<!-- This is directly based on the original HTML for the parable of the polygons, little was changed stylistically -->
 
 <!doctype html>
 <html>
@@ -20,12 +20,12 @@
 		<div id="stats">
 
 			<div id="stats_canvas_container">
-				<canvas id="stats_canvas" width="370" height="270"></canvas>
+				<canvas id="stats_canvas" width="370" height="120"></canvas>
 				<div id="segregation_text"></div>
 				<div id="sad_text"></div>
 				<div id="meh_text"></div>
 			</div>
-			<!-- This is where we give the text/sliders for changable variables --> 
+			<!-- This is where we give the text/sliders for changable variables -->
 			i'll move if <span class="highlight">&lt;<span id="bias_text">33%</span></span>
 			or <span class="highlight">&gt;<span id="nonconform_text">100%</span></span> of my neighbors are like me
 			<br>
@@ -42,7 +42,7 @@
 			<br>
 			<div id="slider2"></div>
 			<br>
-			<!-- Option to either get the simulation going or to reset the board via buttons --> 
+			<!-- Option to either get the simulation going or to reset the board via buttons -->
 			<div class="ui" id="moving" onclick="START_SIM=!START_SIM; doneBuffer = 60; window.writeStats()"></div>
 			<div class="ui" id="reset" onclick="reset()" style="margin-left:9px"></div>
 
