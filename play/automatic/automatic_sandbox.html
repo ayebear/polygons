@@ -25,11 +25,24 @@
 				<div id="sad_text"></div>
 				<div id="meh_text"></div>
 			</div>
-			<!-- This is where we give the text/sliders for changable variables -->
-			i'll move if <span class="highlight">&lt;<span id="bias_text">33%</span></span>
-			or <span class="highlight">&gt;<span id="nonconform_text">100%</span></span> of my neighbors are like me
+
+			<!-- Display text/sliders for changing thresholds of the happiness of each shape -->
+			i'll move if <span class="highlight">&lt;<span id="bias_text_triangle">33%</span></span>
+			or <span class="highlight">&gt;<span id="nonconform_text_triangle">100%</span></span> of my neighbors are like me
 			<br>
-			<div id="slider"></div>
+			<div id="slider_triangle"></div>
+			<br>
+
+			i'll move if <span class="highlight">&lt;<span id="bias_text_square">33%</span></span>
+			or <span class="highlight">&gt;<span id="nonconform_text_square">100%</span></span> of my neighbors are like me
+			<br>
+			<div id="slider_square"></div>
+			<br>
+
+			i'll move if <span class="highlight">&lt;<span id="bias_text_hexagon">33%</span></span>
+			or <span class="highlight">&gt;<span id="nonconform_text_hexagon">100%</span></span> of my neighbors are like me
+			<br>
+			<div id="slider_hexagon"></div>
 			<br>
 
 			the triangle:square:hexagon ratio is
@@ -61,27 +74,45 @@ window.PICK_UP_ANYONE = true;
 var bias_text = document.getElementById("bias_text");
 var nonconform_text = document.getElementById("nonconform_text");
 
-// Initializing the double slider from the doubleslider.js code
-var whatever = new DoubleSlider(document.getElementById("slider"),{
-	backgrounds:[
-		{color:"#555",icon:"ds_sad.png"},
-		{color:"#aaa",icon:"ds_happy.png"},
-		{color:"#555",icon:"ds_sad.png"}
-	],
-	values:[0.20,0.80],
-	onChange:function(values){
-
-		window.BIAS = values[0];
-		window.NONCONFORM = values[1];
-
-		// Write stats
-		START_SIM = false;
-		window.writeStats();
-		bias_text.innerHTML = Math.round(window.BIAS*100)+"%";
-		nonconform_text.innerHTML = Math.round(window.NONCONFORM*100)+"%";
-
+var text_values = {};
+var shape_properties = {
+	triangle: {
+		color: "#FFDD56"
+	},
+	square: {
+		color: "#567DFF"
+	},
+	hexagon: {
+		color: "#21B000"
 	}
-});
+};
+
+// Initialize the sliders for each shape type
+for (var name in shape_properties) {
+	new DoubleSlider(document.getElementById("slider_" + name),{
+		backgrounds:[
+			{color:"#555",icon:"ds_sad.png"},
+			{color:shape_properties[name].color,icon:"ds_happy.png"},
+			{color:"#555",icon:"ds_sad.png"}
+		],
+		values:[0.20,0.80],
+		onChange:function(values){
+
+			window.BIAS[name] = values[0];
+			window.NONCONFORM[name] = values[1];
+
+			// Write stats
+			START_SIM = false;
+			window.writeStats();
+			var bias_text = document.getElementById("bias_text_" + name);
+			var nonconform_text = document.getElementById("nonconform_text_" + name);
+			bias_text.innerHTML = Math.round(window.BIAS[name]*100)+"%";
+			nonconform_text.innerHTML = Math.round(window.NONCONFORM[name]*100)+"%";
+
+		}
+	});
+}
+
 
 var whatever = new NSlider(document.getElementById("slider2"),{
 	backgrounds:[

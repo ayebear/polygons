@@ -17,8 +17,16 @@ var ding = new Audio("../audio/ding.mp3");
 
 
 //initialize bias to 1/3, artifact of original
-var NONCONFORM = 1.00;
-var BIAS = 0.33;
+var NONCONFORM = {
+	triangle: 1.00,
+	square: 1.00,
+	hexagon: 1.00
+};
+var BIAS = {
+	triangle: 0.33,
+	square: 0.33,
+	hexagon: 0.33
+};
 var TILE_SIZE = 30;
 var PEEP_SIZE = 30;
 var GRID_SIZE = 20;
@@ -178,7 +186,7 @@ function Draggable(x,y){
 			}
 			//Dealing with boredom and shakiness based on bias
 			//the shape will shake if it is below the bias threshold or above the conformity threshold, both uncomfortable states
-			if(self.sameness<BIAS || self.sameness>NONCONFORM){
+			if(self.sameness<BIAS.triangle || self.sameness>NONCONFORM.triangle){
 				self.shaking = true;
 			}
 			//if all neighbors are the same it's bored
