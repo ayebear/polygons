@@ -72,7 +72,7 @@ function Draggable(x,y){
 	var offsetX, offsetY;
 	var pickupX, pickupY;
 	self.pickup = function(){
-	    //This means they're picking things up
+		//This means they're picking things up
 		IS_PICKING_UP = true;
 
 		pickupX = (Math.floor(self.x/TILE_SIZE)+0.5)*TILE_SIZE;
@@ -81,7 +81,7 @@ function Draggable(x,y){
 		offsetY = Mouse.y-self.y;
 		self.dragged = true;
 
-		// Dangle the shape 
+		// Dangle the shape
 		self.dangle = 0;
 		self.dangleVel = 0;
 
@@ -95,7 +95,7 @@ function Draggable(x,y){
 	//Dropping the pieces on the board
 	self.drop = function(){
 
-	    //You're not picking it up anymore if you're dropping it
+		//You're not picking it up anymore if you're dropping it
 		IS_PICKING_UP = false;
 
 		//All of this math adjusts the coordinates based on tile size and grid size
@@ -157,7 +157,7 @@ function Draggable(x,y){
 				var dy = d.y-self.y;
 				if(dx*dx+dy*dy<DIAGONAL_SQUARED){
 
-				    //count how many neighbors the shape has in general
+					//count how many neighbors the shape has in general
 					neighbors++;
 
 					//count how many of the shapes neighbors are the same color as it
@@ -173,7 +173,7 @@ function Draggable(x,y){
 			if(neighbors>0){
 				self.sameness = (same/neighbors);
 			}else{
-			    // In this case the shape didn't have neighbors so set the sameness to 1 because all this shape has is itself
+				// In this case the shape didn't have neighbors so set the sameness to 1 because all this shape has is itself
 				self.sameness = 1;
 			}
 			//Dealing with boredom and shakiness based on bias
@@ -219,7 +219,7 @@ function Draggable(x,y){
 	self.draw = function(){
 		ctx.save();
 		ctx.translate(self.x,self.y);
-		
+
 		//Defining shaking and how it looks
 		if(self.shaking){
 			self.frame+=0.07;
@@ -351,7 +351,7 @@ window.render = function(){
 			writeStats();
 		}
 	}else if(START_SIM){
-	    //Keep going you're not done
+		//Keep going you're not done
 		STATS.steps++;
 		doneBuffer = 30;
 
@@ -389,6 +389,8 @@ window.writeStats = function(){
 
 	if(!draggables || draggables.length==0) return;
 
+	var graphHeight = 100;
+
 	// Average Sameness Ratio
 	// Average shaking
 	// Average bored
@@ -408,7 +410,7 @@ window.writeStats = function(){
 	if(isNaN(avg)) debugger;
 
 	// If stats oversteps, bump back
-	if(STATS.steps>250+STATS.offset){
+	if(STATS.steps>graphHeight+STATS.offset){
 		STATS.offset += 120;
 		var tctx = tmp_stats.getContext("2d");
 		tctx.clearRect(0,0,tmp_stats.width,tmp_stats.height);
@@ -425,7 +427,7 @@ window.writeStats = function(){
 	// Graph it
 	stats_ctx.fillStyle = "#cc2727";
 	var x = STATS.steps - STATS.offset;
-	var y = 250 - segregation*250+10;
+	var y = graphHeight - segregation*graphHeight+10;
 	stats_ctx.fillRect(x,y,1,5);
 	// Text
 	segregation_text.innerHTML = Math.floor(segregation*100)+"% segregation";
@@ -433,7 +435,7 @@ window.writeStats = function(){
 	segregation_text.style.left = Math.round(x+35)+"px";
 
 	stats_ctx.fillStyle = "#2727cc";
-	y = 250 - avg_happy*250+10;
+	y = graphHeight - avg_happy*graphHeight+10;
 	stats_ctx.fillRect(x,y,1,5);
 	// Text
 	if(shaking_text){
@@ -443,7 +445,7 @@ window.writeStats = function(){
 	}
 
 	stats_ctx.fillStyle = "#cccc27";
-	y = 250 - avg_bored*250+10;
+	y = graphHeight - avg_bored*graphHeight+10;
 	stats_ctx.fillRect(x,y,1,5);
 	// Text
 	if(bored_text){
