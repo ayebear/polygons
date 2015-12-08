@@ -24,6 +24,17 @@ var PEEP_SIZE = 30;
 var GRID_SIZE = 20;
 var DIAGONAL_SQUARED = (TILE_SIZE+5)*(TILE_SIZE+5) + (TILE_SIZE+5)*(TILE_SIZE+5);
 
+//group biases
+var TRI_BIAS = BIAS;
+var TRI_NONCONFORM = NONCONFORM;
+var SQU_BIAS = BIAS;
+var SQU_NONCONFORM = NONCONFORM;
+var HEX_BIAS = BIAS;
+var HEX_NONCONFORM = NONCONFORM;
+
+//flag for alt algorithm and max attempts to make same piece happy
+var ALT_ALGO=1;
+var MAX_ATTEMPTS=10;
 
 //Default ratio of shapes for startup
 window.RATIO_TRIANGLES = 0.25;
@@ -95,7 +106,7 @@ function Draggable(x,y){
 	//Dropping the pieces on the board
 	self.drop = function(){
 
-	    //You're not picking it up anymore if you're dropping it
+	    //You're se picking it up anymore if you're dropping it
 		IS_PICKING_UP = false;
 
 		//All of this math adjusts the coordinates based on tile size and grid size
@@ -176,6 +187,21 @@ function Draggable(x,y){
 			    // In this case the shape didn't have neighbors so set the sameness to 1 because all this shape has is itself
 				self.sameness = 1;
 			}
+			
+			//////////
+			//Set bias to group bias
+			if(self.color=="triangle"){
+				BIAS=TRI_BIAS;
+				NONCONFORM=TRI_NONCONFORM;
+			}else if(self.color=="square"){
+				BIAS=SQU_BIAS;
+				NONCONFORM=SQU_NONCONFORM;
+			}else{
+				BIAS=HEX_BIAS;
+				NONCONFORM=HEX_NONCONFORM;
+			}
+			//////////
+			
 			//Dealing with boredom and shakiness based on bias
 			//the shape will shake if it is below the bias threshold or above the conformity threshold, both uncomfortable states
 			if(self.sameness<BIAS || self.sameness>NONCONFORM){
@@ -518,6 +544,20 @@ function step(){
 	if(!spot) return;
 	shaker.gotoX = spot.x;
 	shaker.gotoY = spot.y;
+	
+	var curAttempts=0;
+	if((ALT_ALGO==1)&&(curAttempts<MAX_ATTEMPTS)){
+		if(shaker.shaking){
+			spot = empties[Math.floor(Math.random()*empties.length)];
+			if(!spot) return;
+			shaker.gotoX = spot.x;
+			shaker.gotoY = spot.y;
+			curAttempts++;
+		}
+		else{
+			curAttempts=MAX_ATTEMPTS+1;
+		}
+	}
 
 }
 
