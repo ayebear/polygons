@@ -32,6 +32,9 @@ var PEEP_SIZE = 30;
 var GRID_SIZE = 20;
 var DIAGONAL_SQUARED = (TILE_SIZE+5)*(TILE_SIZE+5) + (TILE_SIZE+5)*(TILE_SIZE+5);
 
+//Flag for alt algorithm and max attempts to make same piece happy
+var ALT_ALGO = 1;
+var MAX_ATTEMPTS = 10;
 
 //Default ratio of shapes for startup
 window.RATIO_TRIANGLES = 0.25;
@@ -186,7 +189,7 @@ function Draggable(x,y){
 			}
 			//Dealing with boredom and shakiness based on bias
 			//the shape will shake if it is below the bias threshold or above the conformity threshold, both uncomfortable states
-			if(self.sameness<BIAS.triangle || self.sameness>NONCONFORM.triangle){
+			if(self.sameness<BIAS[self.color] || self.sameness>NONCONFORM[self.color]){
 				self.shaking = true;
 			}
 			//if all neighbors are the same it's bored
@@ -529,6 +532,19 @@ function step(){
 	shaker.gotoX = spot.x;
 	shaker.gotoY = spot.y;
 
+	var curAttempts=0;
+	if((ALT_ALGO==1)&&(curAttempts<MAX_ATTEMPTS)){
+		if(shaker.shaking){
+			spot = empties[Math.floor(Math.random()*empties.length)];
+			if(!spot) return;
+			shaker.gotoX = spot.x;
+			shaker.gotoY = spot.y;
+			curAttempts++;
+		}
+		else{
+			curAttempts=MAX_ATTEMPTS+1;
+		}
+	}
 }
 
 ////////////////////
