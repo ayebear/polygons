@@ -96,19 +96,18 @@ for (var name in shape_properties) {
 			{color:"#555",icon:"ds_sad.png"}
 		],
 		values:[0.20,0.80],
-		onChange:function(values){
-
-			window.BIAS[name] = values[0];
-			window.NONCONFORM[name] = values[1];
+		name: name,
+		onChange:function(values, shape_name){
+			window.BIAS[shape_name] = values[0];
+			window.NONCONFORM[shape_name] = values[1];
 
 			// Write stats
 			START_SIM = false;
 			window.writeStats();
-			var bias_text = document.getElementById("bias_text_" + name);
-			var nonconform_text = document.getElementById("nonconform_text_" + name);
-			bias_text.innerHTML = Math.round(window.BIAS[name]*100)+"%";
-			nonconform_text.innerHTML = Math.round(window.NONCONFORM[name]*100)+"%";
-
+			var bias_text = document.getElementById("bias_text_" + shape_name);
+			var nonconform_text = document.getElementById("nonconform_text_" + shape_name);
+			bias_text.innerHTML = Math.round(window.BIAS[shape_name]*100)+"%";
+			nonconform_text.innerHTML = Math.round(window.NONCONFORM[shape_name]*100)+"%";
 		}
 	});
 }
@@ -122,7 +121,7 @@ var whatever = new NSlider(document.getElementById("slider2"),{
 		{color:"#000",icon:"ds_sad.png"}
 	],
 	values:[0.25,0.50,0.75],
-	onChange:function(values){
+	onChange:function(values, shape_name){
 
 		// Actual values
 		var VALUE_1 = values[0];
