@@ -12,18 +12,21 @@ new DoubleSlider(dom,{
 		{color:"#2095dc"}
 	],
 
-	values:[0.1,0.9]
+	values:[0.1,0.9],
+
+	name: "triangle"
 
 });
 
 ***/
 function DoubleSlider(dom,config){
-
+	// This is JavaScript, not Python, WTF
 	var self = this;
 	self.dom = dom;
 	self.backgrounds = [];
 	self.sliders = [];
 	self.values = config.values;
+	self.name = config.name;
 
 	self.draggingSliderDOM = null;
 	self.draggingSliderIndex = -1;
@@ -81,8 +84,7 @@ function DoubleSlider(dom,config){
 
 			self.values[index] = val;
 			self.updateUI();
-			config.onChange(self.values);
-
+			config.onChange(self.values, self.name);
 		}
 	}
 	function onMouseUp(){
@@ -135,9 +137,7 @@ function DoubleSlider(dom,config){
 
 	// INIT
 	self.updateUI();
-	config.onChange(self.values);
-
-
+	config.onChange(self.values, self.name);
 }
 
 function findPos(obj){
@@ -150,7 +150,7 @@ function findPos(obj){
 		var pos = findPos(obj.offsetParent);
 		curleft += pos[0];
 		curtop += pos[1];
-		
+
 	}
 	//Ignore this section of commented code, its leftovers
 	/* else if(obj.ownerDocument) {

@@ -57,7 +57,7 @@ div{
 }
 #stats_canvas_container{
 	background:url(../img/stats.png);
-	width:400px; height:300px;
+	width:400px; height:150px;
 	position:relative; overflow:hidden;
 	margin-bottom: 20px;
 }
