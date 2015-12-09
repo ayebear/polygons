@@ -187,21 +187,6 @@ function Draggable(x,y){
 				// In this case the shape didn't have neighbors so set the sameness to 1 because all this shape has is itself
 				self.sameness = 1;
 			}
-
-			//////////
-			//Set bias to group bias
-			if(self.color=="triangle"){
-				BIAS=TRI_BIAS;
-				NONCONFORM=TRI_NONCONFORM;
-			}else if(self.color=="square"){
-				BIAS=SQU_BIAS;
-				NONCONFORM=SQU_NONCONFORM;
-			}else{
-				BIAS=HEX_BIAS;
-				NONCONFORM=HEX_NONCONFORM;
-			}
-			//////////
-
 			//Dealing with boredom and shakiness based on bias
 			//the shape will shake if it is below the bias threshold or above the conformity threshold, both uncomfortable states
 			if(self.sameness<BIAS[self.color] || self.sameness>NONCONFORM[self.color]){
@@ -546,20 +531,6 @@ function step(){
 	if(!spot) return;
 	shaker.gotoX = spot.x;
 	shaker.gotoY = spot.y;
-
-	var curAttempts=0;
-	if((ALT_ALGO==1)&&(curAttempts<MAX_ATTEMPTS)){
-		if(shaker.shaking){
-			spot = empties[Math.floor(Math.random()*empties.length)];
-			if(!spot) return;
-			shaker.gotoX = spot.x;
-			shaker.gotoY = spot.y;
-			curAttempts++;
-		}
-		else{
-			curAttempts=MAX_ATTEMPTS+1;
-		}
-	}
 
 	var curAttempts=0;
 	if((ALT_ALGO==1)&&(curAttempts<MAX_ATTEMPTS)){
